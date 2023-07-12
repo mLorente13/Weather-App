@@ -1,1 +1,8 @@
-# Weather app using html, tailwindscss and javascript combined with the api from [weatherapi.com](https://weatherapi.com)
+# Weather APP
+
+## Technologies:
+- HTML
+- TailwindCSS
+- Javascript
+
+API used 	[weatherapi.com](https://www.weatherapi.com)
