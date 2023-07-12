@@ -1,6 +1,6 @@
 import { APIKEY } from '/js/apikey.js';
 
-const URL = "http://api.weatherapi.com/v1/current.json?key=";
+const URL = "https://api.weatherapi.com/v1/current.json?key=";
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
 const toastContainer = document.getElementById("toast-container");
