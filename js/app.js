@@ -1,4 +1,5 @@
-const APIKEY = "887dc6018afe4ff2915175303230803";
+import { APIKEY } from '/js/apikey.js';
+
 const URL = "http://api.weatherapi.com/v1/current.json?key=";
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
