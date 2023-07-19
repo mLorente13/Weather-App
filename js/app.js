@@ -1,6 +1,5 @@
 import { APIKEY } from '/js/apikey.js';
 
-const URL = "https://api.weatherapi.com/v1/current.json?key=";
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
 const toastContainer = document.getElementById("toast-container");
@@ -8,10 +7,11 @@ let toast;
 
 searchBtn.addEventListener("click", () => {
   const inputValue = document.getElementById("city-input").value;
+  const URL = `https://api.weatherapi.com/v1/current.json?key=${APIKEY}&q=${inputValue}&aqi=no`;
   if (inputValue === "") {
     createInfoToast();
   } else {
-    fetch(URL + APIKEY + "&q=" + inputValue + "&aqi=no")
+    fetch(URL)
       .then((data) => {
         return data.json();
       })
