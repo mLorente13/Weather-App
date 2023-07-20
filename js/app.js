@@ -9,7 +9,7 @@ searchBtn.addEventListener("click", () => {
   const inputValue = document.getElementById("city-input").value;
   const URL = `https://api.weatherapi.com/v1/current.json?key=${APIKEY}&q=${inputValue}&aqi=no`;
   if (inputValue === "") {
-    createInfoToast();
+    createWarningToast();
   } else {
     fetch(URL)
       .then((data) => {
@@ -39,16 +39,11 @@ searchBtn.addEventListener("click", () => {
   }
 });
 
-function currentWeather(weather) {
-  console.log(weather);
-  return "cloudy";
-}
-
-function createInfoToast() {
+function createWarningToast() {
   toastContainer.innerHTML = `
-  <div class='toast transition-all duration-300 ease-out bg-white border-l-8 rounded-lg border-yellow-300 px-3 py-3'>
+  <div class='toast absolute top-3 right-3 w-[15rem] flex align-center justify-around cursor-pointer transition ease-in-out duration-300 bg-white border-l-8 rounded-lg border-yellow-300 px-3 py-3'>
     <i class='bi bi-info-circle-fill inline text-xl text-yellow-300'></i>
-    <p class='inline font-semibold'>Cannot find the city</p>
+    <p class='inline font-semibold self-center text-lg'>Cannot find the city</p>
   </div>`;
   toast = document.getElementsByClassName("toast");
   toast = Array.from(toast);
@@ -63,8 +58,11 @@ toastContainer.addEventListener("click", () => {
 
 function removeToast() {
   toast.forEach((element) => {
-    element.style.right = "-400px";
+    console.log(element)
+    element.style.transition = 'all ease .3s';
+    element.style.right = '-400px';
     setTimeout(() => {
+    console.log(element)
       element.remove();
     }, 1000);
   });
