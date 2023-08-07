@@ -1,5 +1,5 @@
 import { APIKEY } from "/js/apikey.js";
-
+const URL = ""
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
 const toastContainer = document.getElementById("toast-container");
@@ -29,11 +29,12 @@ function convertCoords(position) {
 }
 
 searchBtn.addEventListener("click", () => {
-  const inputValue = document.getElementById("city-input").value;
-  if (inputValue === "") {
+  searchQuery = searchInput.value;
+  console.log(searchQuery)
+  if (searchQuery === "") {
     createInfoToast();
   } else {
-    fetch(URL + APIKEY + "&q=" + inputValue + "&aqi=no")
+    fetch(`https://api.weatherapi.com/v1/current.json?key=${APIKEY}&q=${searchQuery}&aqi=no`)
       .then((data) => {
         return data.json();
       })
