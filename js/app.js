@@ -1,6 +1,5 @@
 import { APIKEY } from "/js/apikey.js";
 
-const URL = "https://api.weatherapi.com/v1/current.json?key=";
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
 const toastContainer = document.getElementById("toast-container");
@@ -30,11 +29,11 @@ function convertCoords(position) {
 }
 
 searchBtn.addEventListener("click", () => {
-  searchQuery = searchInput.value;
-  if (searchQuery === "") {
+  const inputValue = document.getElementById("city-input").value;
+  if (inputValue === "") {
     createInfoToast();
   } else {
-    fetch(URL + APIKEY + "&q=" + searchQuery + "&aqi=no")
+    fetch(URL + APIKEY + "&q=" + inputValue + "&aqi=no")
       .then((data) => {
         return data.json();
       })
@@ -62,11 +61,16 @@ searchBtn.addEventListener("click", () => {
   }
 });
 
+function currentWeather(weather) {
+  console.log(weather);
+  return "cloudy";
+}
+
 function createInfoToast() {
   toastContainer.innerHTML = `
-  <div class='toast transition-all duration-300 ease-out bg-white border-l-8 rounded-lg border-yellow-300 px-3 py-3'>
+  <div class='toast absolute top-3 right-3 w-[15rem] flex align-center justify-around cursor-pointer transition ease-in-out duration-300 bg-white border-l-8 rounded-lg border-yellow-300 px-3 py-3'>
     <i class='bi bi-info-circle-fill inline text-xl text-yellow-300'></i>
-    <p class='inline font-semibold'>Cannot find the city</p>
+    <p class='inline font-semibold self-center text-lg'>Cannot find the city</p>
   </div>`;
   toast = document.getElementsByClassName("toast");
   toast = Array.from(toast);
@@ -82,7 +86,9 @@ toastContainer.addEventListener("click", () => {
 
 function removeToast() {
   toast.forEach((element) => {
+    element.style.right = "-400px";
     setTimeout(() => {
+    console.log(element)
       element.remove();
     }, 1000);
   });

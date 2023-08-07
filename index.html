@@ -14,14 +14,16 @@
     <div
       class="flex align-center justify-center flex-col h-screen w-[30%] mx-auto"
     >
+  <body class="max-h-screen max-w-[100vw] w-full h-screen bg-blue-950 p-0 m-0 overflow-hidden">
+    <div class="flex align-center justify-center flex-col h-screen w-[100%] md:w-[70%] lg:w-[30%] mx-auto">
       <label
         for="default-search"
         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
         >Search</label
       >
-      <div class="relative">
+      <div class="relative">  
         <div
-          class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none"
+          class="absolute inset-y-0 left-5 md:left-0 flex items-center pl-3 pointer-events-none"
         >
           <svg
             class="w-4 h-4 text-gray-500 dark:text-gray-400"
@@ -49,14 +51,14 @@
         <button
           id="search-btn"
           type="submit"
-          class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="text-white absolute right-8 md:right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           Search
         </button>
       </div>
       <div id="container"></div>
     </div>
-    <div id="toast-container" class="absolute top-5 right-5"></div>
+    <div id="toast-container" class="absolute top-0 right-0 w-80 flex flex-col items-end"></div>
   </body>
   <script type="module" src="js/app.js"></script>
 </html>
