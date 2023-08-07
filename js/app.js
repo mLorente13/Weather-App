@@ -1,17 +1,40 @@
-import { APIKEY } from '/js/apikey.js';
+import { APIKEY } from "/js/apikey.js";
 
 const URL = "https://api.weatherapi.com/v1/current.json?key=";
 const searchBtn = document.getElementById("search-btn");
 const container = document.getElementById("container");
 const toastContainer = document.getElementById("toast-container");
+const searchInput = document.getElementById("search-query");
+let searchQuery;
 let toast;
 
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(convertCoords);
+} else {
+  x.innerHTML = "Geolocation is not supported by this browser.";
+}
+
+function convertCoords(position) {
+  let latitude = position.coords.latitude;
+  let longitude = position.coords.longitude;
+  fetch(
+    `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+  )
+    .then((data) => {
+      return data.json();
+    })
+    .then((data) => {
+      searchInput.value = data.locality;
+    })
+    .catch();
+}
+
 searchBtn.addEventListener("click", () => {
-  const inputValue = document.getElementById("city-input").value;
-  if (inputValue === "") {
+  searchQuery = searchInput.value;
+  if (searchQuery === "") {
     createInfoToast();
   } else {
-    fetch(URL + APIKEY + "&q=" + inputValue + "&aqi=no")
+    fetch(URL + APIKEY + "&q=" + searchQuery + "&aqi=no")
       .then((data) => {
         return data.json();
       })
@@ -25,8 +48,8 @@ searchBtn.addEventListener("click", () => {
 
         container.innerHTML = `
     <div class="my-10 p-5 m-auto bg-slate-300 w-80 rounded-md">
-      <h2 class="text-center font-bold text-2xl">${location}</h2>
-      <p class="text-center">${weather}</p>
+      <h1 class="text-center font-bold text-2xl">${location}</h1>
+      <p class="text-center font-semibold">${weather}</p>
       <div class="flex justify-center">
         <img class="ml-auto inline text-center" src="${icon}" />
         <h2 class="text-center inline font-bold text-2xl mr-auto self-center">${temperature}°C</h2>
@@ -38,11 +61,6 @@ searchBtn.addEventListener("click", () => {
       });
   }
 });
-
-function currentWeather(weather) {
-  console.log(weather);
-  return "cloudy";
-}
 
 function createInfoToast() {
   toastContainer.innerHTML = `
@@ -58,12 +76,12 @@ function createInfoToast() {
 }
 
 toastContainer.addEventListener("click", () => {
+  console.log("toast clicked");
   removeToast();
 });
 
 function removeToast() {
   toast.forEach((element) => {
-    element.style.right = "-400px";
     setTimeout(() => {
       element.remove();
     }, 1000);
